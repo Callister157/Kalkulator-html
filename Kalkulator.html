@@ -3,69 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kalkulator Sederhana</title>
+    <title>Kalkulator Sederhana (Loop)</title>
 </head>
 <body>
 
     <script>
         function jalankanKalkulator() {
-            // 1. Meminta input angka pertama dari pengguna
-            let input1 = prompt("Masukkan angka pertama:");
-            if (input1 === null) return; // Berhenti jika pengguna menekan Cancel
-            let angka1 = parseFloat(input1);
+            let ulangi = true;
 
-            // Validasi jika input pertama bukan angka
-            if (isNaN(angka1)) {
-                alert("Error: Input pertama harus berupa angka!");
-                return;
-            }
+            do {
+                // 1. Meminta input angka pertama
+                let input1 = prompt("Masukkan angka pertama:");
+                if (input1 === null) break; // Keluar dari loop jika tekan Cancel
+                let angka1 = parseFloat(input1);
 
-            // 2. Meminta input operator matematika
-            let operator = prompt("Masukkan operator (+, -, *, /):");
-            if (operator === null) return;
-            operator = operator.trim(); // Menghapus spasi berlebih jika ada
+                if (isNaN(angka1)) {
+                    alert("Error: Input pertama harus berupa angka!");
+                    ulangi = confirm("Apakah Anda ingin mencoba lagi?");
+                    continue; // Melompat ke iterasi loop berikutnya
+                }
 
-            // 3. Meminta input angka kedua dari pengguna
-            let input2 = prompt("Masukkan angka kedua:");
-            if (input2 === null) return;
-            let angka2 = parseFloat(input2);
+                // 2. Meminta input operator
+                let operator = prompt("Masukkan operator (+, -, *, /):");
+                if (operator === null) break;
+                operator = operator.trim();
 
-            // Validasi jika input kedua bukan angka
-            if (isNaN(angka2)) {
-                alert("Error: Input kedua harus berupa angka!");
-                return;
-            }
+                // 3. Meminta input angka kedua
+                let input2 = prompt("Masukkan angka kedua:");
+                if (input2 === null) break;
+                let angka2 = parseFloat(input2);
 
-            // 4. Proses perhitungan berdasarkan operator
-            let hasil;
+                if (isNaN(angka2)) {
+                    alert("Error: Input kedua harus berupa angka!");
+                    ulangi = confirm("Apakah Anda ingin mencoba lagi?");
+                    continue;
+                }
 
-            switch (operator) {
-                case "+":
-                    hasil = angka1 + angka2;
-                    break;
-                case "-":
-                    hasil = angka1 - angka2;
-                    break;
-                case "*":
-                    hasil = angka1 * angka2;
-                    break;
-                case "/":
-                    if (angka2 === 0) {
-                        alert("Error: Tidak dapat membagi bilangan dengan nol (0)!");
-                        return;
-                    }
-                    hasil = angka1 / angka2;
-                    break;
-                default:
-                    alert("Error: Operator tidak valid! Gunakan hanya +, -, *, atau /.");
-                    return;
-            }
+                // 4. Proses perhitungan
+                let hasil;
+                let valid = true;
 
-            // 5. Menampilkan hasil perhitungan melalui alert
-            alert("Hasil: " + angka1 + " " + operator + " " + angka2 + " = " + hasil);
+                switch (operator) {
+                    case "+":
+                        hasil = angka1 + angka2;
+                        break;
+                    case "-":
+                        hasil = angka1 - angka2;
+                        break;
+                    case "*":
+                        hasil = angka1 * angka2;
+                        break;
+                    case "/":
+                        if (angka2 === 0) {
+                            alert("Error: Tidak dapat membagi bilangan dengan nol (0)!");
+                            valid = false;
+                        } else {
+                            hasil = angka1 / angka2;
+                        }
+                        break;
+                    default:
+                        alert("Error: Operator tidak valid! Gunakan hanya +, -, *, atau /.");
+                        valid = false;
+                }
+
+                // 5. Menampilkan hasil jika perhitungan valid
+                if (valid) {
+                    alert("Hasil: " + angka1 + " " + operator + " " + angka2 + " = " + hasil);
+                }
+
+                // 6. Konfirmasi apakah pengguna ingin mengulang perhitungan
+                ulangi = confirm("Apakah Anda ingin menghitung lagi?");
+
+            } while (ulangi);
+
+            alert("Program kalkulator selesai.");
         }
 
-        // Menjalankan kalkulator saat halaman dimuat
         jalankanKalkulator();
     </script>
 
