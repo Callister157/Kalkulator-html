@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Sederhana</title>
+</head>
+<body>
+
+    <script>
+        function jalankanKalkulator() {
+            // 1. Meminta input angka pertama dari pengguna
+            let input1 = prompt("Masukkan angka pertama:");
+            if (input1 === null) return; // Berhenti jika pengguna menekan Cancel
+            let angka1 = parseFloat(input1);
+
+            // Validasi jika input pertama bukan angka
+            if (isNaN(angka1)) {
+                alert("Error: Input pertama harus berupa angka!");
+                return;
+            }
+
+            // 2. Meminta input operator matematika
+            let operator = prompt("Masukkan operator (+, -, *, /):");
+            if (operator === null) return;
+            operator = operator.trim(); // Menghapus spasi berlebih jika ada
+
+            // 3. Meminta input angka kedua dari pengguna
+            let input2 = prompt("Masukkan angka kedua:");
+            if (input2 === null) return;
+            let angka2 = parseFloat(input2);
+
+            // Validasi jika input kedua bukan angka
+            if (isNaN(angka2)) {
+                alert("Error: Input kedua harus berupa angka!");
+                return;
+            }
+
+            // 4. Proses perhitungan berdasarkan operator
+            let hasil;
+
+            switch (operator) {
+                case "+":
+                    hasil = angka1 + angka2;
+                    break;
+                case "-":
+                    hasil = angka1 - angka2;
+                    break;
+                case "*":
+                    hasil = angka1 * angka2;
+                    break;
+                case "/":
+                    if (angka2 === 0) {
+                        alert("Error: Tidak dapat membagi bilangan dengan nol (0)!");
+                        return;
+                    }
+                    hasil = angka1 / angka2;
+                    break;
+                default:
+                    alert("Error: Operator tidak valid! Gunakan hanya +, -, *, atau /.");
+                    return;
+            }
+
+            // 5. Menampilkan hasil perhitungan melalui alert
+            alert("Hasil: " + angka1 + " " + operator + " " + angka2 + " = " + hasil);
+        }
+
+        // Menjalankan kalkulator saat halaman dimuat
+        jalankanKalkulator();
+    </script>
+
+</body>
+</html>
